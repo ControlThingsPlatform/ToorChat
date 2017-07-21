@@ -99,7 +99,7 @@ class Visualizer():
 			self.screen.setscrreg(3, self.screen_max_y - 2)
 			while True:
 				self.screen_max_y, self.screen_max_x = self.screen.getmaxyx()
-				self.screen.addstr(0, 1, "[ENTER] Message [U] Username [C] Channel [F] Frequency [W] Load Webpage")
+                                self.screen.addstr(0, 1, "[ENTER] Message [u] Username [c] Channel [f] Freq KHz [w] Load Webpage :")
 				self.__add_message_to_screen__()
 				entry = self.screen.getch()
 				if entry == curses.KEY_RESIZE:
@@ -113,25 +113,29 @@ class Visualizer():
 					self.screen.addstr(1,1," "*(self.screen_max_x-3))
 				if entry == ord('u'):
 					self.screen.nodelay(0)
-					user_input = self.screen.getstr(1, 1, 60)
+                                        self.screen.addstr(1, 2, 'Username:')
+					user_input = self.screen.getstr(1, 12, 60)
 					self.user = user_input[:USER_NAME_SIZE]
 					self.screen.nodelay(1)
 					self.screen.addstr(1,1," "*(self.screen_max_x-3))
 				if entry == ord('c'):
 					self.screen.nodelay(0)
-					user_input = self.screen.getstr(1, 1, 60)
+                                        self.screen.addstr(1, 2, 'Channel:')
+					user_input = self.screen.getstr(1, 11, 60)
 					self.channel = self.protocol.change_channel(user_input)
 					self.screen.nodelay(1)
 					self.screen.addstr(1,1," "*(self.screen_max_x-3))
 				if entry == ord('f'):
 					self.screen.nodelay(0)
-					user_input = self.screen.getstr(1, 1, 60)
+                                        self.screen.addstr(1, 2, 'Freq KHz:')
+					user_input = self.screen.getstr(1, 12, 60)
 					self.frequency = self.protocol.change_frequency(user_input)
 					self.screen.nodelay(1)
 					self.screen.addstr(1,1," "*(self.screen_max_x-3))
 				if entry == ord('w'):
 					self.screen.nodelay(0)
-					user_input = self.screen.getstr(1, 1, 60)
+                                        self.screen.addstr(1, 2, 'Web URL:')
+					user_input = self.screen.getstr(1, 11, 60)
 					self.request_xid = ToorMessage.get_random_xid()
 					self.website_buffer = []
 					request = self.protocol.send_web_request(user_input, self.request_xid)
