@@ -66,6 +66,7 @@ class Visualizer():
 		self.screen.nodelay(1)
 		self.screen.scrollok(1)
 		self.badge = RfCat(idx=0)
+		self.badge.setFreq(433000000)
 		self.badge.setModeRX()
 		self.protocol = ToorChatProtocol(self.badge)
 		self.message_queue = []
@@ -157,7 +158,7 @@ class Visualizer():
 				self.screen.scroll()
 				self.screen.border(0)
 				self.last_message_index -= 1
-				
+
 	def __draw_frame__(self, clear = True):
 		if clear:
 			self.screen.clear()
